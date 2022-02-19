@@ -17,13 +17,19 @@ elif mode == 1:
  # Game
 while True:
      column = int(input("Please select a column p1:"))
-     p1.make_move(column, board)
-     board.show_board()
+     move = False
+     while move == False:
+         move = p1.make_move(column, board)
+         board.show_board()
     
      if isinstance(p2, Machine):
-         p2.make_move(board)
+        move = False
+        while move == False:
+            move = p2.make_move(board)
+            board.show_board()
      else:
         column = int(input("Please select a column p2:"))
-        p2.make_move(column, board)
-         
-     board.show_board()
+        move = False
+        while move == False:
+            move = p2.make_move(column, board)
+            board.show_board()

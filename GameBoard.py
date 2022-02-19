@@ -123,5 +123,7 @@ class GameBoard():
         if self.__valid_move(column_idx):
             row_idx = self.__row_idx_to_update(column_idx)
             self.board[row_idx][column_idx] = char
+            return True
         else:
             print("Please, choose a valid column")
+            return False
