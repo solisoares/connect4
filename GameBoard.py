@@ -8,12 +8,12 @@
 # Is Game Over 
 
 class GameBoard():
-    def __init__(self, rows: int, columns: int):
+    def __init__(self, rows: int = 6, columns: int = 7):
         """Construct empty game board of shape rows x columns (MxN)
 
         Args:
-            rows (int): Number of board rows
-            columns (int): Number of board columns
+            rows (int): Number of board rows. Defaults to 6
+            columns (int): Number of board columns. Defaults to 7
         """
         self.rows = rows
         self.columns = columns
