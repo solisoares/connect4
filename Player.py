@@ -37,5 +37,5 @@ class Machine(Player):
         Args:
             board (GameBoard): The game board.
         """
-        column_idx = random.randint(0, len(board.board) - 1)
+        column_idx = random.randint(0, len(board.board[0]) - 1)
         board.update_board(column_idx, self.char)
