@@ -1,5 +1,9 @@
 from GameBoard import GameBoard
 from Player import Player, Machine
+from logo import logo
+
+# Game Logo
+print(logo)
 
 # Board
 # rows = int(input("Please, how many rows do you want the board to be?  "))
