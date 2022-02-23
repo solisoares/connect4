@@ -37,5 +37,7 @@ class Machine(Player):
         Args:
             board (GameBoard): The game board.
         """
-        column_idx = random.randint(0, len(board.board[0]) - 1)
+        column_idx = random.randint(0, len(board.board[0]) - 1) # Try a initial random number in the range of the number of columns
+        while board._GameBoard__valid_move(column_idx) == False: 
+            column_idx = random.randint(0, len(board.board[0]) - 1) # If invalid move, try again
         board.update_board(column_idx, self.char)
