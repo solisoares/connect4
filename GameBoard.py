@@ -122,10 +122,11 @@ class GameBoard():
             column_idx (int): idx of the column to get
             char (str): alphanumeric character. Do not use "_"
         """
+
         if self.__valid_move(column_idx):
             row_idx = self.__row_idx_to_update(column_idx)
             self.board[row_idx][column_idx] = char
         else:
             # print("Please, choose a valid column")
-            new_column_idx = int(input("Please, choose a valid column:  "))
+            new_column_idx = int(input("!!! Please, choose a valid column !!!:  "))
             self.update_board(new_column_idx, char)
