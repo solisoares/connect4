@@ -83,6 +83,17 @@ class GameBoard():
     def get_diagonal(self):
         pass
 
+    def __outside_column_range(self, column_idx: int):
+        """ Inform whether column_idx is outside column range or inside
+
+        Args:
+            column_idx (int): idx of the row to get
+
+        Returns:
+            Boolean: True or False for outside or inside column range
+        """
+        return (column_idx < 0) or (column_idx >= self.columns)
+
     def __valid_move(self, column_idx: int):
         """Returns if a game movement is valid or not (If the column is 
         yet to be filled or is already full).
@@ -93,8 +104,11 @@ class GameBoard():
         Returns:
             Bool: Return True or False for the movement validity
         """
-        column = self.get_column(column_idx)
-        return "_" in column
+        if self.__outside_column_range(column_idx): # Checks if idx is not in column range
+            return False
+        else:
+            column = self.get_column(column_idx)
+        return ("_" in column)  # If idx in column range, checks if there is "_" in the column
 
     def __row_idx_to_update(self, column_idx: int):
         """Returns the idx to update in column if is valid move in
@@ -130,3 +144,9 @@ class GameBoard():
             # print("Please, choose a valid column")
             new_column_idx = int(input("!!! Please, choose a valid column !!!:  "))
             self.update_board(new_column_idx, char)
+
+    def tie(self):
+        pass
+    
+    def game_over():
+        pass
