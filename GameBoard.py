@@ -44,10 +44,12 @@ class GameBoard():
             None
         """
         print()
+        [print(n, end="  ") for n in range(self.columns)]
+        print()
         for row in self.board:
             # print(" " * 10, end="")
             for item in row:
-                print(item, end=" ")
+                print(item, end="  ")
             print()
         print()
 
@@ -123,7 +125,7 @@ class GameBoard():
         if self.__valid_move(column_idx):
             row_idx = self.__row_idx_to_update(column_idx)
             self.board[row_idx][column_idx] = char
-            return True
         else:
-            print("Please, choose a valid column")
-            return False
+            # print("Please, choose a valid column")
+            new_column_idx = int(input("Please, choose a valid column:  "))
+            self.update_board(new_column_idx, char)
