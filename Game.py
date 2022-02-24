@@ -40,7 +40,7 @@ while True:
         column = int(input("Please select a column Player 2:"))
         p2.make_move(column, board)
         print("\n"*100)
-    if game_over(p1, p2):
+        if game_over(p1, p2):
+            board.show_board()
+            break
         board.show_board()
-        break
-    board.show_board()
