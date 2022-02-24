@@ -53,18 +53,17 @@ class GameBoard():
             print()
         print()
 
-    def get_row(self, row_idx: int):
-        """Get a row from the board 
+    # def get_row(self, row_idx: int):
+    #     """Get a row from the board 
 
-        Args:
-            row_idx (int): idx of the row to get
+    #     Args:
+    #         row_idx (int): idx of the row to get
         
-        Returns:
-            row (str): The row from the specified index
-        """
-        row = self.board[row_idx] 
-        # row = "".join(row) # FIXME 
-        return row
+    #     Returns:
+    #         row (str): The row from the specified index
+    #     """
+    #     row = self.board[row_idx] 
+    #     return row
 
     def get_column(self, column_idx: int):
         """Get a column from the board
@@ -80,8 +79,14 @@ class GameBoard():
             column.append(row[column_idx]) 
         return column
 
-    def get_diagonal(self):
-        pass
+    def get_diagonals(self):
+        max_col = len(self.board[0])
+        max_row = len(self.board)
+        all_diagonals = [[] for _ in range(max_row + max_col - 1)]
+        for x in range(max_col):
+            for y in range(max_row):
+                all_diagonals[x+y].append(self.board[y][x])
+        return all_diagonals
 
     def __outside_column_range(self, column_idx: int):
         """ Inform whether column_idx is outside column range or inside
@@ -146,7 +151,116 @@ class GameBoard():
             self.update_board(new_column_idx, char)
 
     def tie(self):
-        pass
+        """Checks if the board is full and no one 
+
+        Returns:
+            _type_: _description_
+        """
+        # Checks if there is "_" present in the board elements
+        for row in self.board:
+            for item in row:
+                if "_" in item:
+                    return False # "_" char found, not a tie
+        return True # "_" char found, its a tie
+
+    # def winner_char_count(self, list, p1, p2):
+    #     p1_count, p2_count = 0, 0
+    #     for item in list:
+    #         if p1.char == item:
+    #             p1_count += 1
+    #             p2_count = 0
+    #             if p1_count == 4:
+    #                 return 1
+    #         elif p2.char == item:
+    #             p2_count += 1
+    #             p1_count = 0
+    #             if p2_count == 4:
+    #                 return 2
+    #     return 0
     
-    def game_over():
-        pass
+    def win_at_row(self, p1, p2): # TODO: ask professor about import class Player here the problem is that i import GameBoard class in Player already
+        """Checks if any of the players won the game by looking at the rows
+
+        Args:
+            p1 (Player): player 1 from class Player/Player.Machine
+            p2 (Player): player 2 from class Player/Player.Machine
+
+        Returns:
+            0, 1, 2 (int): Who won the game. No one (0), player 1 (1); player 2 (2)
+        """
+        for row in self.board:
+            p1_count, p2_count = 0, 0
+            for row_item in row: # for each row look at each item
+                if p1.char == row_item:
+                    p1_count += 1
+                    p2_count = 0
+                    if p1_count == 4:
+                        return 1
+                elif p2.char == row_item:
+                    p2_count += 1
+                    p1_count = 0
+                    if p2_count == 4:
+                        return 2
+        return 0 # Neither players won
+
+    def win_at_column(self, p1, p2):
+        for column_idx in range(len(self.board[0])):
+            p1_count, p2_count = 0, 0
+            for row_idx in range(len(self.board)):
+                column_item = self.board[row_idx][column_idx]
+                if p1.char == column_item:
+                    p1_count += 1
+                    p2_count = 0
+                    if p1_count == 4:
+                        return 1
+                elif p2.char == column_item:
+                    p2_count += 1
+                    p1_count = 0
+                    if p2_count == 4:
+                        return 2
+        return 0 # Neither players won
+
+    def win_at_diagonal(self, p1, p2):
+        diagonals = self.get_diagonals()
+        for row in diagonals:
+            p1_count, p2_count = 0, 0
+            for row_item in row: # for each row look at each item
+                if p1.char == row_item:
+                    p1_count += 1
+                    p2_count = 0
+                    if p1_count == 4:
+                        return 1
+                elif p2.char == row_item:
+                    p2_count += 1
+                    p1_count = 0
+                    if p2_count == 4:
+                        return 2
+        return 0 # Neither players won        
+
+    def game_over(self, p1, p2):
+        # Check game over by row
+        winner = self.win_at_row(p1, p2)
+        if winner != 0:
+            print(f"Player {winner} is the winner!!")
+            print(f"------------------------")
+            return True
+        
+        # Check game over by column
+        winner = self.win_at_column(p1, p2)
+        if (winner == 1) or (winner == 2):
+            print(f"Player {winner} is the winner!!")
+            print(f"------------------------")
+            return True
+
+        # Check game over by diagonal
+        winner = self.win_at_diagonal(p1, p2)
+        if (winner == 1) or (winner == 2):
+            print(f"Player {winner} is the winner!!")
+            print(f"------------------------")
+            return True
+
+        # Check tie
+        if self.tie():
+            print(f"It's a Tie!!")
+            print(f"------------")    
+            return True
