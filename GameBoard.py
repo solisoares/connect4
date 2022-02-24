@@ -1,12 +1,3 @@
-# TODO 
-# Create empty Board [OK]
-# Show Board         [OK]
-# Ask Move
-# Valid Move         [OK]
-#   \_ Warning       [OK]
-#   \_ Update Board  [OK]
-# Is Game Over 
-
 class GameBoard():
     def __init__(self, rows: int = 6, columns: int = 7):
         """Construct empty game board of shape rows x columns (MxN)
@@ -69,7 +60,7 @@ class GameBoard():
         """Get a column from the board
 
         Args:
-            column_idx (int): idx of the row to get
+            column_idx (int): idx of the column to get
 
         Returns:
             column (list): The column from the specified index
@@ -92,7 +83,7 @@ class GameBoard():
         """ Inform whether column_idx is outside column range or inside
 
         Args:
-            column_idx (int): idx of the row to get
+            column_idx (int): idx of the column to get
 
         Returns:
             Boolean: True or False for outside or inside column range
@@ -151,10 +142,13 @@ class GameBoard():
             self.update_board(new_column_idx, char)
 
     def tie(self):
-        """Checks if the board is full and no one 
+        """Checks if the board is full and no one won the game
+
+        Args:
+            None
 
         Returns:
-            _type_: _description_
+            Boolean: True/False to whether it is a tie or not
         """
         # Checks if there is "_" present in the board elements
         for row in self.board:
