@@ -8,8 +8,7 @@ print(logo)
 # Board
 # rows = int(input("Please, how many rows do you want the board to be?  "))
 # columns = int(input("Please, how many columns do you want the board to be?  "))
-rows, columns = 6,7
-board = GameBoard(rows, columns)
+board = GameBoard()
 board.show_board()
 
 # Players
@@ -21,14 +20,27 @@ elif mode == 1:
 
 # Game
 while True:
+    game_over = board.game_over
     column = int(input("Please select a column Player 1:"))
     p1.make_move(column, board)
+    print("\n"*100)
+    if game_over(p1, p2):
+        board.show_board()
+        break
     board.show_board()
 
     if isinstance(p2, Machine):
         p2.make_move(board)
+        print("\n"*100)
+        if game_over(p1, p2):
+            board.show_board()
+            break
         board.show_board()
     else:
         column = int(input("Please select a column Player 2:"))
         p2.make_move(column, board)
+        print("\n"*100)
+    if game_over(p1, p2):
         board.show_board()
+        break
+    board.show_board()
