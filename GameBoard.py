@@ -195,6 +195,9 @@ class GameBoard():
                     p1_count = 0
                     if p2_count == 4:
                         return 2
+                elif "_" == row_item:
+                    p1_count = 0
+                    p2_count = 0
         return 0 # Neither players won
 
     def win_at_column(self, p1, p2):
