@@ -73,11 +73,14 @@ class GameBoard():
     def get_diagonals(self):
         max_col = len(self.board[0])
         max_row = len(self.board)
-        all_diagonals = [[] for _ in range(max_row + max_col - 1)]
+        fdiagonals = [[] for _ in range(max_row + max_col - 1)]
+        bdiagonals = [[] for _ in range(len(fdiagonals))]
         for x in range(max_col):
             for y in range(max_row):
-                all_diagonals[x+y].append(self.board[y][x])
-        return all_diagonals
+                fdiagonals[x+y].append(self.board[y][x])
+                bdiagonals[x-y+max_row-1].append(self.board[y][x])
+        return fdiagonals + bdiagonals
+
 
     def __outside_column_range(self, column_idx: int):
         """ Inform whether column_idx is outside column range or inside
