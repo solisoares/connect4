@@ -59,7 +59,7 @@ class GameBoard():
         """
         column = []
         for row in self.board:
-            column.append(row[column_idx]) 
+            column.append(row[column_idx]) # for each row, append only the itens in the chosen column 
         return column
 
     def get_diagonals(self):
@@ -107,11 +107,11 @@ class GameBoard():
         Returns:
             Bool: Return True or False for the movement validity
         """
-        if self.__outside_column_range(column_idx): # Checks if idx is not in column range
+        if self.__outside_column_range(column_idx): # Checks if colum is outside range
             return False
         else:
             column = self.get_column(column_idx)
-        return ("_" in column)  # If idx in column range, checks if there is "_" in the column
+        return ("_" in column)  # If in column range, returns if there is "_" in the column
 
     def __row_idx_to_update(self, column_idx: int):
         """Returns where to update the column.
@@ -122,14 +122,14 @@ class GameBoard():
             column_idx (int): idx of the column to get
 
         Returns:
-            char_count (int): the index to update the column
+            int: the index to update the column
         """
         column = self.get_column(column_idx)
         char_count = 0
         for item in column:
             if item == "_":
                 char_count +=1
-        return char_count - 1
+        return char_count - 1 # the next empty space "_" to update
 
     def update_board(self, column_idx: int, char: str):
         """Updates board with specified character. 
@@ -149,7 +149,7 @@ class GameBoard():
             row_idx = self.__row_idx_to_update(column_idx)
             self.board[row_idx][column_idx] = char
         else:
-            new_column_idx = int(input("!!! Please, choose a valid column !!!:  "))
+            new_column_idx = int(input("!!! Please, choose a valid column !!!:  ")) # If it is not a valid move, ask a new one
             self.update_board(new_column_idx, char)
 
     def tie(self):
