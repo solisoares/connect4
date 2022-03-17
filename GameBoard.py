@@ -11,9 +11,9 @@ class GameBoard():
         """
         self.rows = rows
         self.columns = columns
-        self.board = self.create_empty_board()
+        self.board = self.__create_empty_board()
 
-    def create_empty_board(self):
+    def __create_empty_board(self):
         """Create empty board game.
         Implemented as a 2D-Matrix (list of lists).
 
@@ -46,7 +46,7 @@ class GameBoard():
             print()
         print()
 
-    def get_column(self, column_idx: int):
+    def __get_column(self, column_idx: int):
         """Get a single column from the board
 
         Used to check move availability and to update the column.
@@ -62,7 +62,7 @@ class GameBoard():
             column.append(row[column_idx]) # for each row, append only the itens in the chosen column 
         return column
 
-    def get_diagonals(self):
+    def __get_diagonals(self):
         """Get all the diagonals from the board, forward and backward.
 
         Used in game win check.
@@ -110,7 +110,7 @@ class GameBoard():
         if self.__outside_column_range(column_idx): # Checks if colum is outside range
             return False
         else:
-            column = self.get_column(column_idx)
+            column = self.__get_column(column_idx)
         return ("_" in column)  # If in column range, returns if there is "_" in the column
 
     def __row_idx_to_update(self, column_idx: int):
@@ -124,7 +124,7 @@ class GameBoard():
         Returns:
             int: the index to update the column
         """
-        column = self.get_column(column_idx)
+        column = self.__get_column(column_idx)
         char_count = 0
         for item in column:
             if item == "_":
@@ -152,8 +152,8 @@ class GameBoard():
             new_column_idx = int(input("!!! Please, choose a valid column !!!:  ")) # If it is not a valid move, ask a new one
             self.update_board(new_column_idx, char)
 
-    def tie(self):
-        """ Checks if a tie occured
+    def __tie(self):
+        """ Checks if a __tie occured
 
         Tie is when the board is full and no one won the game.
 
@@ -161,17 +161,17 @@ class GameBoard():
             None
 
         Returns:
-            Boolean: True/False to whether it is a tie or not
+            Boolean: True/False to whether it is a __tie or not
         """
         # Checks if there is "_" present in the board elements
         for row in self.board:
             for item in row:
                 if "_" in item:
-                    return False # "_" char found, not a tie
-        return True # "_" char found, its a tie
+                    return False # "_" char found, not a __tie
+        return True # "_" char found, its a __tie
 
 
-    def win_at_row(self, p1, p2):
+    def __win_at_row(self, p1, p2):
         """Checks if any of the players won the game by looking at the rows
 
         To win at a row, one must put 4 of its character in sequence horizontally
@@ -201,7 +201,7 @@ class GameBoard():
                     p2_count = 0
         return 0 # Neither players won
 
-    def win_at_column(self, p1, p2):
+    def __win_at_column(self, p1, p2):
         """Checks if any of the players won the game by looking at the columns
 
         To win at a column, one must put 4 of its character in sequence vertically
@@ -229,7 +229,7 @@ class GameBoard():
                         return 2
         return 0 # Neither players won
 
-    def win_at_diagonal(self, p1, p2):
+    def __win_at_diagonal(self, p1, p2):
         """Checks if any of the players won the game by looking at the diagonals
 
         To win at a diagonal, one must put 4 of its character in sequence diagonally
@@ -241,7 +241,7 @@ class GameBoard():
         Returns:
             0, 1, 2 (int): Who won the game. No one (0), player 1 (1), player 2 (2)
         """
-        diagonals = self.get_diagonals()
+        diagonals = self.__get_diagonals()
         for row in diagonals:
             p1_count, p2_count = 0, 0
             for row_item in row: # for each row look at each item
@@ -268,28 +268,28 @@ class GameBoard():
             Bool: Whether the game is over or not
         """
         # Check game over by row
-        winner = self.win_at_row(p1, p2)
+        winner = self.__win_at_row(p1, p2)
         if winner != 0:
             print(f"Player {winner} is the winner!!")
             print(f"------------------------")
             return True
         
         # Check game over by column
-        winner = self.win_at_column(p1, p2)
+        winner = self.__win_at_column(p1, p2)
         if (winner == 1) or (winner == 2):
             print(f"Player {winner} is the winner!!")
             print(f"------------------------")
             return True
 
         # Check game over by diagonal
-        winner = self.win_at_diagonal(p1, p2)
+        winner = self.__win_at_diagonal(p1, p2)
         if (winner == 1) or (winner == 2):
             print(f"Player {winner} is the winner!!")
             print(f"------------------------")
             return True
 
-        # Check tie
-        if self.tie():
+        # Check __tie
+        if self.__tie():
             print(f"It's a Tie!!")
             print(f"------------")    
             return True
